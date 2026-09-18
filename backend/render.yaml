@@ -1,0 +1,20 @@
+# Render.com Blueprint - see https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: darukaa-earth-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: darukaa-earth-db
+          property: connectionString
+
+databases:
+  - name: darukaa-earth-db
+    plan: free
