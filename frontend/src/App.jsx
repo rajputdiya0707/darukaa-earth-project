@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate, Link, useNavigate } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Dashboard from './pages/Dashboard.jsx'
@@ -13,18 +14,25 @@ function PrivateRoute({ children }) {
   return isAuthed() ? children : <Navigate to="/login" replace />
 }
 
+PrivateRoute.propTypes = {
+  children: PropTypes.node.isRequired,
+}
+
 function Navbar() {
   const navigate = useNavigate()
   const authed = isAuthed()
+
   const logout = () => {
     localStorage.removeItem('token')
     navigate('/login')
   }
+
   return (
     <div className="navbar">
       <div>
         <Link to="/">🌍 Darukaa.Earth</Link>
       </div>
+
       <div>
         {authed ? (
           <button onClick={logout}>Logout</button>
@@ -43,9 +51,12 @@ export default function App() {
   return (
     <>
       <Navbar />
+
       <Routes>
         <Route path="/login" element={<Login />} />
+
         <Route path="/register" element={<Register />} />
+
         <Route
           path="/"
           element={
@@ -54,6 +65,7 @@ export default function App() {
             </PrivateRoute>
           }
         />
+
         <Route
           path="/projects/:projectId"
           element={
@@ -62,6 +74,7 @@ export default function App() {
             </PrivateRoute>
           }
         />
+
         <Route
           path="/sites/:siteId"
           element={

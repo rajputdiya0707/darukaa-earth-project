@@ -56,7 +56,6 @@ export default function ProjectMap() {
     map.on('draw.delete', () => setPendingGeometry(null))
 
     loadSites()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {

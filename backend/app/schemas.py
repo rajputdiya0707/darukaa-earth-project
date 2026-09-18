@@ -1,6 +1,7 @@
-from pydantic import BaseModel, EmailStr
-from typing import Optional, Any, List
 from datetime import datetime
+from typing import Any, List, Optional
+
+from pydantic import BaseModel, EmailStr
 
 
 class UserCreate(BaseModel):
@@ -11,6 +12,7 @@ class UserCreate(BaseModel):
 class UserOut(BaseModel):
     id: int
     email: EmailStr
+
     class Config:
         from_attributes = True
 
@@ -30,6 +32,7 @@ class ProjectOut(BaseModel):
     name: str
     description: str
     created_at: datetime
+
     class Config:
         from_attributes = True
 
@@ -47,6 +50,7 @@ class SiteOut(BaseModel):
     geometry: Any
     area_hectares: float
     created_at: datetime
+
     class Config:
         from_attributes = True
 
